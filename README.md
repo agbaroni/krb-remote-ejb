@@ -15,4 +15,6 @@ vagrant ssh frontend
 kinit user1@EXAMPLE.COM
 
 curl -v --negotiate -b cookies.txt -c cookies.txt -u : http://frontend:8080/test/local
+
+curl -v --negotiate -b cookies.txt -c cookies.txt -u : http://frontend:8080/test/remote
 ```

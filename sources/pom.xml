@@ -42,7 +42,7 @@
   <groupId>io.github.agbaroni.tests</groupId>
   <modelVersion>4.0.0</modelVersion>
   <modules>
-    <!-- <module>backend</module> -->
+    <module>backend</module>
     <module>frontend</module>
   </modules>
   <packaging>pom</packaging>
