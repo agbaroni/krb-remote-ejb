@@ -1,0 +1,4 @@
+**/.DS_Store
+wildfly-18.0.1.Final*
+**/target
+.vagrant
