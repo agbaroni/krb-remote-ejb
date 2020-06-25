@@ -2,3 +2,4 @@
 wildfly-18.0.1.Final*
 **/target
 .vagrant
+wildfly[12]

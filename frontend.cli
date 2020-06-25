@@ -22,7 +22,7 @@ embed-server --server-config=standalone-full.xml
 
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=backend-destination:add(host=backend,port=8080)
 
-/subsystem=elytron/authentication-configuration=backend-configuration:add(security-domain=frontend-domain,sasl-mechanism-selector=GSSAPI,kerberos-security-factory=backend-security-factory,protocol=remote+http)
+/subsystem=elytron/authentication-configuration=backend-configuration:add(security-domain=frontend-domain,sasl-mechanism-selector=GSSAPI,kerberos-security-factory=backend-security-factory,protocol=remote+http,mechanism-properties={wildfly.sasl.local-user.quiet-auth=true,wildfly.sasl.gssapi.client.delegate-credential=true})
 
 /subsystem=elytron/authentication-context=backend-context:add(match-rules=[{authentication-configuration=backend-configuration}]
 

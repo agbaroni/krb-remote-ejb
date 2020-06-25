@@ -15,5 +15,4 @@ Vagrant.configure("2") do |config|
     backend.vm.hostname = 'backend'
     backend.vm.provision "shell", path: "backend.sh"
   end
-
 end

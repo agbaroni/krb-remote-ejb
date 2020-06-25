@@ -2,7 +2,7 @@
 
 set -e -x
 
-yum -y install java-1.8.0-openjdk-devel krb5-workstation
+yum -y install net-tools java-1.8.0-openjdk-devel krb5-workstation
 
 mv /etc/krb5.conf{,.orig}
 

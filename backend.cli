@@ -2,7 +2,7 @@ embed-server --server-config=standalone-full.xml
 
 :write-attribute(name=name,value=backend)
 
-/subsystem=elytron/kerberos-security-factory=backend-security-factory:add(path=example.keytab,relative-to=jboss.server.config.dir,principal=remote/backend@EXAMPLE.COM,mechanism-names=[KRB5])
+/subsystem=elytron/kerberos-security-factory=backend-security-factory:add(path=example.keytab,relative-to=jboss.server.config.dir,principal=remote/backend@EXAMPLE.COM,mechanism-names=[KRB5],name=obtain-kerberos-ticket=true,options={isInitiator=false})
 
 /subsystem=elytron/security-domain=backend-domain:add(realms=[{realm=ApplicationRealm,role-decoder=groups-to-roles}],default-realm=ApplicationRealm,permission-mapper=default-permission-mapper)
 
@@ -15,5 +15,13 @@ embed-server --server-config=standalone-full.xml
 /subsystem=logging/logger=org.jboss.as.controller.management-operation:add(level=INFO)
 
 /subsystem=logging/logger=org.jboss.modules:add(level=INFO)
+
+/subsystem=elytron/sasl-authentication-factory=backend-authentication-factory:add(security-domain=backend-domain,sasl-server-factory=elytron,mechanism-configurations=[{mechanism-name=GSSAPI,credential-security-factory=backend-security-factory}])
+
+/subsystem=remoting/http-connector=http-remoting-connector:undefine-attribute(name=security-realm)
+
+/subsystem=remoting/http-connector=http-remoting-connector:write-attribute(name=sasl-authentication-factory,value=backend-authentication-factory)
+
+/subsystem=remoting/http-connector=http-remoting-connector:write-attribute(name=server-name,value=backend)
 
 deploy /vagrant/sources/backend/application/target/krb-propagate-backend-application-0.1.0-SNAPSHOT.ear
