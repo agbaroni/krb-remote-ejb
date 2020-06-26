@@ -23,14 +23,16 @@ embed-server --server-config=standalone-full.xml
 
 /subsystem=logging/logger=org.jboss.modules:add(level=INFO)
 
-/subsystem=elytron/kerberos-security-factory=backend-security-factory:add(path=example.keytab,relative-to=jboss.server.config.dir,principal=remote/backend@EXAMPLE.COM,mechanism-names=[KRB5])
+# /subsystem=elytron/kerberos-security-factory=backend-security-factory:add(path=example.keytab,relative-to=jboss.server.config.dir,principal=remote/backend@EXAMPLE.COM,mechanism-names=[KRB5])
 
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=backend-destination:add(host=backend,port=8080)
 
-/subsystem=elytron/authentication-configuration=backend-configuration:add(security-domain=frontend-domain,sasl-mechanism-selector=GSSAPI,kerberos-security-factory=backend-security-factory,protocol=remote+http)
+/subsystem=elytron/authentication-configuration=backend-configuration:add(security-domain=frontend-domain,sasl-mechanism-selector=GSSAPI,protocol=remote+http)
 
 /subsystem=elytron/authentication-context=backend-context:add(match-rules=[{authentication-configuration=backend-configuration}]
 
-/subsystem=remoting/remote-outbound-connection=backend-connection:add(outbound-socket-binding-ref=backend-destination,authentication-context=backend-context)
+/subsystem=elytron:write-attribute(name=default-authentication-context,value=backend-context)
+
+/subsystem=remoting/remote-outbound-connection=backend-connection:add(outbound-socket-binding-ref=backend-destination)
 
 deploy /vagrant/sources/frontend/application/target/krb-propagate-frontend-application-0.1.0-SNAPSHOT.ear
