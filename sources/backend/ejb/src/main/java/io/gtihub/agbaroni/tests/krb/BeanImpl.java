@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 
 import org.jboss.ejb3.annotation.SecurityDomain;
 
+@PermitAll
 @Remote(Bean.class)
 @SecurityDomain("backend")
 @Stateless
