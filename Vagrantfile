@@ -6,13 +6,18 @@ Vagrant.configure("2") do |config|
     kerberos.vm.provision "shell", path: "kerberos.sh"
   end
 
-  config.vm.define "frontend" do |frontend|
-    frontend.vm.hostname = 'frontend'
-    frontend.vm.provision "shell", path: "frontend.sh"
+  config.vm.define "database" do |database|
+    database.vm.hostname = 'database'
+    database.vm.provision "shell", path: "database.sh"
   end
 
   config.vm.define "backend" do |backend|
     backend.vm.hostname = 'backend'
     backend.vm.provision "shell", path: "backend.sh"
+  end
+
+  config.vm.define "frontend" do |frontend|
+    frontend.vm.hostname = 'frontend'
+    frontend.vm.provision "shell", path: "frontend.sh"
   end
 end

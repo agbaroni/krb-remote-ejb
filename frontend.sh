@@ -2,7 +2,11 @@
 
 set -e -x
 
-yum -y install net-tools java-1.8.0-openjdk-devel krb5-workstation
+yum -y install ntp net-tools java-1.8.0-openjdk-devel krb5-workstation
+
+systemctl enable --now ntpd
+
+timedatectl set-timezone Europe/Rome
 
 mv /etc/krb5.conf{,.orig}
 
