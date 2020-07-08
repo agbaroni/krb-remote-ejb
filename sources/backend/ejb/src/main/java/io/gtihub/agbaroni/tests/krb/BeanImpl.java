@@ -11,8 +11,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceProperty;
 import javax.persistence.PersistenceUnit;
+import javax.sql.DataSource;
 
+import org.hibernate.SessionFactory;
 import org.jboss.ejb3.annotation.SecurityDomain;
 
 @PermitAll
@@ -25,8 +28,18 @@ public class BeanImpl implements Bean {
     @Resource
     private EJBContext context;
 
+    @Resource(lookup = "java:/jdbc/Database")
+    private DataSource dataSource;
+
     @PersistenceUnit(unitName = "database")
     private EntityManagerFactory entityManagerFactory;
+
+    // @PersistenceContext(unitName = "database")
+    // private EntityManager entityManager;
+
+    // private void getBoh() throws Exception {
+    // 	SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+    // }
 
     @Override
     public String getUser() throws Exception {
@@ -41,7 +54,7 @@ public class BeanImpl implements Bean {
 	String word = null;
 
 	properties.put("javax.persistence.jdbc.user", context.getCallerPrincipal().getName());
-	properties.put("hibernate.connection.username", context.getCallerPrincipal().getName());
+	// properties.put("hibernate.connection.username", context.getCallerPrincipal().getName());
 
 	entityManager = entityManagerFactory.createEntityManager(properties);
 
