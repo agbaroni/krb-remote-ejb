@@ -22,6 +22,8 @@ curl -JLOk https://download.jboss.org/wildfly/18.0.1.Final/wildfly-18.0.1.Final.
 
 tar -xzf wildfly-18.0.1.Final.tar.gz
 
+sed -i 's@#JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"@JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"@g' ./wildfly-18.0.1.Final/bin/standalone.conf
+
 ./wildfly-18.0.1.Final/bin/add-user.sh -a -u admin -p password
 ./wildfly-18.0.1.Final/bin/add-user.sh -a -u user1@EXAMPLE.COM -p password -g default
 

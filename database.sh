@@ -23,10 +23,11 @@ printf "add_entry -password -p postgres/database@EXAMPLE.COM -k 3 -e aes256-cts-
 chown postgres:postgres /var/lib/pgsql/12/data/example.keytab
 
 sed -i "s@#listen_addresses = 'localhost'@listen_addresses = '*'@g" /var/lib/pgsql/12/data/postgresql.conf
-
 sed -i "s@#krb_server_keyfile = ''@krb_server_keyfile = '/var/lib/pgsql/12/data/example.keytab'@g" /var/lib/pgsql/12/data/postgresql.conf
-
 sed -i "s@#log_min_messages = warning@log_min_messages = debug5@g" /var/lib/pgsql/12/data/postgresql.conf
+sed -i "s@#log_connections = off@log_connections = on@g" /var/lib/pgsql/12/data/postgresql.conf
+sed -i "s@#log_disconnections = off@log_disconnections = on@g" /var/lib/pgsql/12/data/postgresql.conf
+sed -i "s@#log_hostname = off@log_hostname = on@g" /var/lib/pgsql/12/data/postgresql.conf
 
 mv /var/lib/pgsql/12/data/pg_hba.conf{,.orig}
 

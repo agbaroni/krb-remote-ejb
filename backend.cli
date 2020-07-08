@@ -8,7 +8,7 @@ embed-server --server-config=standalone-full.xml
 
 /subsystem=elytron/kerberos-security-factory=backend-security-factory:add(path=example.keytab,relative-to=jboss.server.config.dir,principal=remote/backend@EXAMPLE.COM,mechanism-names=[KRB5],debug=true)
 
-/subsystem=elytron/kerberos-security-factory=database-security-factory:add(path=example.keytab,relative-to=jboss.server.config.dir,principal=postgres/database@EXAMPLE.COM,mechanism-names=[KRB5],debug=true,obtain-kerberos-ticket=true,server=false,min-pool-size=0,pool-prefill=false,pool-use-strict-min=false,idle-timeout-minutes=2)
+# /subsystem=elytron/kerberos-security-factory=database-security-factory:add(path=example.keytab,relative-to=jboss.server.config.dir,principal=postgres/database@EXAMPLE.COM,mechanism-names=[KRB5],debug=true,obtain-kerberos-ticket=true,server=false,min-pool-size=0,pool-prefill=false,pool-use-strict-min=false,idle-timeout-minutes=2)
 
 /subsystem=elytron/security-domain=backend-domain:add(realms=[{realm=ApplicationRealm,role-decoder=groups-to-roles}],default-realm=ApplicationRealm,permission-mapper=default-permission-mapper)
 
@@ -32,15 +32,14 @@ embed-server --server-config=standalone-full.xml
 
 module add --name=org.postgresql --resources=/opt/postgresql-42.2.14.jar --dependencies=javax.api,javax.transaction.api
 
-/subsystem=elytron/authentication-configuration=database-configuration:add(kerberos-security-factory=database-security-factory)
+# /subsystem=elytron/authentication-configuration=database-configuration:add(kerberos-security-factory=database-security-factory)
+# /subsystem=elytron/authentication-context=database-context:add(match-rules=[{authentication-configuration=database-configuration}]
 
-/subsystem=elytron/authentication-context=database-context:add(match-rules=[{authentication-configuration=database-configuration}]
+/subsystem=elytron/authentication-configuration=backend-configuration:add(security-domain=backend-domain)
+/subsystem=elytron/authentication-context=backend-context:add(match-rules=[{authentication-configuration=backend-configuration}]
 
 /subsystem=datasources/jdbc-driver=postgresql:add(driver-module-name=org.postgresql,xa-datasource-class=org.postgresql.xa.PGXADataSource)
 
-/subsystem=datasources/data-source=database:add(authentication-context=database-context,connection-url="jdbc:postgresql://database:5432/test1",driver-name=postgresql,elytron-enabled=true,jndi-name=java:/jdbc/Database)
+/subsystem=datasources/data-source=database:add(authentication-context=backend-context,connection-url="jdbc:postgresql://database:5432/test1",driver-name=postgresql,elytron-enabled=true,jndi-name=java:/jdbc/Database)
 
 deploy /vagrant/sources/backend/application/target/krb-propagate-backend-application-0.1.0-SNAPSHOT.ear
-
-
-# gssencmode=require&jaasLogin=false&kerberosServerName=postgres
