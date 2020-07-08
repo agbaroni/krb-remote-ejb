@@ -40,16 +40,18 @@ public class BeanImpl implements Bean {
 	Word w = null;
 	String word = null;
 
-	// properties.put("javax.persistence.jdbc.user", context.getCallerPrincipal().getName());
+	properties.put("javax.persistence.jdbc.user", context.getCallerPrincipal().getName());
+	properties.put("hibernate.connection.username", context.getCallerPrincipal().getName());
 
 	entityManager = entityManagerFactory.createEntityManager(properties);
 
 	System.out.println("@@@ " + entityManager);
 
 	w = entityManager.find(Word.class, new Integer(0));
-	// word = entityManager.find(Word.class, new Integer(0)).getName();
 
 	System.out.println("@@@ " + w);
+
+	word = w.getName();
 
 	entityManager.close();
 

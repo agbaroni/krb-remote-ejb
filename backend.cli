@@ -8,7 +8,7 @@ embed-server --server-config=standalone-full.xml
 
 /subsystem=elytron/kerberos-security-factory=backend-security-factory:add(path=example.keytab,relative-to=jboss.server.config.dir,principal=remote/backend@EXAMPLE.COM,mechanism-names=[KRB5],debug=true)
 
-/subsystem=elytron/kerberos-security-factory=database-security-factory:add(path=example.keytab,relative-to=jboss.server.config.dir,principal=postgres/database@EXAMPLE.COM,mechanism-names=[KRB5],debug=true,server=false)
+/subsystem=elytron/kerberos-security-factory=database-security-factory:add(path=example.keytab,relative-to=jboss.server.config.dir,principal=postgres/database@EXAMPLE.COM,mechanism-names=[KRB5],debug=true,obtain-kerberos-ticket=true,server=false,min-pool-size=0,allow-multiple-users=true)
 
 /subsystem=elytron/security-domain=backend-domain:add(realms=[{realm=ApplicationRealm,role-decoder=groups-to-roles}],default-realm=ApplicationRealm,permission-mapper=default-permission-mapper)
 
