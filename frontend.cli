@@ -21,6 +21,7 @@ embed-server --server-config=standalone-full.xml
 /subsystem=logging/logger=org.jboss.as.server.deployment.scanner:add(level=INFO)
 /subsystem=logging/logger=org.apache.activemq:add(level=INFO)
 /subsystem=logging/logger=org.jboss.threads:add(level=INFO)
+/subsystem=logging/logger=org.jboss.vfs:add(level=INFO)
 
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=backend-destination:add(host=backend,port=8080)
 
