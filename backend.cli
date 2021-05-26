@@ -21,6 +21,7 @@ embed-server --server-config=standalone-full.xml
 /subsystem=logging/logger=org.jboss.as.server.deployment.scanner:add(level=INFO)
 /subsystem=logging/logger=org.apache.activemq:add(level=INFO)
 /subsystem=logging/logger=org.jboss.threads:add(level=INFO)
+/subsystem=logging/logger=org.jboss.vfs:add(level=INFO)
 
 /subsystem=elytron/sasl-authentication-factory=backend-authentication-factory:add(security-domain=backend-domain,sasl-server-factory=elytron,mechanism-configurations=[{mechanism-name=GSSAPI,credential-security-factory=backend-security-factory}])
 
