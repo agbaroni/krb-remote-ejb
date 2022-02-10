@@ -15,7 +15,7 @@
       <artifactId>hibernate-core</artifactId>
       <groupId>org.hibernate</groupId>
       <scope>provided</scope>
-      <version>5.3.13.Final</version>
+      <version>5.4.24.Final</version>
     </dependency>
     <dependency>
       <artifactId>krb-propagate-backend-ejb-client</artifactId>
